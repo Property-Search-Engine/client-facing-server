@@ -1,0 +1,22 @@
+FROM node:latest
+
+ENV NPM_CONFIG_LOGLEVEL=http
+
+WORKDIR /app
+
+COPY src /app/src/
+COPY package.json .
+COPY jest.config.js .
+COPY jsconfig.json .
+COPY globalConfig.json .
+
+RUN npm install -g jest
+RUN npm install mongodb-memory-server-global --save-dev
+RUN npm install -g nodemon
+RUN npm install -g dotenv
+
+RUN npm install && npm build
+
+EXPOSE 5000
+
+STOPSIGNAL SIGINT

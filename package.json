@@ -1,0 +1,49 @@
+{
+  "name": "mern-server",
+  "version": "1.0.0",
+  "description": "Server app made with React.js and Node.js for the Assembler School MERN Recipes App by @danilucaci.",
+  "private": true,
+  "author": "Dani Lucaci <danilucaci@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/assembler-school/mern-seed-recipes.git"
+  },
+  "keywords": [
+    "challenge",
+    "react.js",
+    "node.js"
+  ],
+  "license": "MIT",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "jest --watch --detectOpenHandles --runInBand --forceExit",
+    "dev": "nodemon ./src/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.2",
+    "helmet": "^4.2.0",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "loglevel": "^1.7.1",
+    "mongoose": "^5.11.14",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "validator": "^13.5.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jest": "^26.6.3",
+    "jest-environment-node": "^26.6.2",
+    "mongodb-memory-server": "^6.9.3",
+    "supertest": "^6.0.1"
+  }
+}
