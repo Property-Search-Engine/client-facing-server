@@ -4,19 +4,19 @@
 
 <p align="center">
   <a href="./LICENSE" target="_blank">
-    <img alt="MIT License" src="https://img.shields.io/github/license/Property-Search-Engine/admin-server" />
+    <img alt="MIT License" src="https://img.shields.io/github/license/Property-Search-Engine/client-facing-server" />
   </a>
 
-  <img alt="node-build" src="https://img.shields.io/github/workflow/status/Property-Search-Engine/admin-server/NodeJS?logo=node.js" />
+  <img alt="node-build" src="https://img.shields.io/github/workflow/status/Property-Search-Engine/client-facing-server/NodeJS?logo=node.js" />
 
-  <img alt="pr" src="https://img.shields.io/github/issues-pr/Property-Search-Engine/admin-server" />
-  <img alt="issues" src="https://img.shields.io/github/issues/Property-Search-Engine/admin-server" />
+  <img alt="pr" src="https://img.shields.io/github/issues-pr/Property-Search-Engine/client-facing-server" />
+  <img alt="issues" src="https://img.shields.io/github/issues/Property-Search-Engine/client-facing-server" />
   <img alt="discord-chat" src="https://img.shields.io/discord/803927161806520340?logo=discord" />
 </p>
 
 <h1 align="center">CasaMe: Find the house or office of your dreams</h1>
 
-> CasaMe Service admin dashboard backend
+> CasaMe Service client facing app backend
 
 ## Configure
 

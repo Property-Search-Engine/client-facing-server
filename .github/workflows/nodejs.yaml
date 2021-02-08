@@ -1,0 +1,48 @@
+name: NodeJS
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: node:15
+    timeout-minutes: 15
+    services:
+      mongo:
+        image: mongo:latest
+        env:
+          MONGO_INITDB_ROOT_USERNAME: docker
+          MONGO_INITDB_ROOT_PASSWORD: docker
+          MONGO_INITDB_DATABASE: casame
+        ports:
+            - 27017:27017
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: npm install
+      - name: in-memory-mongodb install
+        run: npm install mongodb-memory-server-global --save-dev
+      - name: Test node-server
+        env:
+          SERVICE_NAME: admin_api
+          NODE_ENV: development
+          PORT: 5000
+          BCRYPT_SALT_ROUNDS: 12
+          MONGO_DB_URL_DEVELOPMENT: mongodb://docker:docker@mongo:27017/casame?authSource=admin
+          MONGO_DB_URL_PRODUCTION: mongodb://docker:docker@mongo:27017/casame?authSource=admin
+          MONGO_DB_URL_TEST: mongodb://docker:docker@mongo:27017/casame?authSource=admin
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          FB_CERT_TYPE: ${{ secrets.FB_CERT_TYPE }}
+          FB_CERT_PROJECT_ID: ${{ secrets.FB_CERT_PROJECT_ID }}
+          FB_CERT_PRIVATE_KEY_ID: ${{ secrets.FB_CERT_PRIVATE_KEY_ID }}
+          FB_CERT_PRIVATE_KEY: ${{ secrets.FB_CERT_PRIVATE_KEY }}
+          FB_CERT_CLIENT_EMAIL: ${{ secrets.FB_CERT_CLIENT_EMAIL }}
+          FB_CERT_CLIENT_ID: ${{ secrets.FB_CERT_CLIENT_ID }}
+          FB_CERT_AUTH_URI: ${{ secrets.FB_CERT_AUTH_URI }}
+          FB_CERT_TOKEN_URI: ${{ secrets.FB_CERT_TOKEN_URI }}
+          FB_CERT_AUTH_PROVIDER_X_509_CERT_URL: ${{ secrets.FB_CERT_AUTH_PROVIDER_X_509_CERT_URL }}
+          FB_CERT_CLIENT_X_509_CERT_URL: ${{ secrets.FB_CERT_CLIENT_X_509_CERT_URL }}
+        run: npm run test
