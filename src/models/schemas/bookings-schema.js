@@ -33,7 +33,12 @@ const addressSchema = new mongoose.Schema(
 );
 
 const bookingSchema = new mongoose.Schema({
-    employee_id: {
+    clientId: {
+        type: String,
+        required: true,
+        ref: "Client"
+    },
+    employeeId: {
         type: String,
         required: true,
         trim: true
@@ -70,7 +75,7 @@ const bookingSchema = new mongoose.Schema({
             minlength: 3,
         }
     }
-});
+}, { timestamps: true });
 
 
 module.exports = bookingSchema;
