@@ -84,9 +84,12 @@ const bookingSchema = new mongoose.Schema({
 
 bookingSchema.pre("validate", async (next) => {
     try {
-        const res = await fetch(`${config.admin_server_url}/${this.propertyId}`, {
+        const res = await fetch(`${config.admin_server_url}/properties/${this.propertyId}`, {
             method: 'get',
-            headers: { 'Accept': 'application/json' },
+            headers: { 
+                'Accept': 'application/json',
+                'Auth': config.jwt.token
+             },
         });
         if (!res.ok) return next({ statusCode: res.status, message: res.statusText });
         const property = await res.json();

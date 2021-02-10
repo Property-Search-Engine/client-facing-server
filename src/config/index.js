@@ -1,4 +1,5 @@
 const logger = require("loglevel");
+const jwt = require("jsonwebtoken");
 
 logger.enableAll();
 
@@ -8,7 +9,8 @@ const {
   MONGO_DB_URL_DEVELOPMENT,
   MONGO_DB_URL_TEST,
   PORT = 5000,
-  JWT_SECRET,
+  JWT_SECRET_PAYLOAD,
+  JWT_SECRET_SIGN,
   ADMIN_SERVER_URL,
   BCRYPT_SALT_ROUNDS,
   FB_CERT_TYPE,
@@ -26,7 +28,9 @@ const {
 const baseConfig = {
   port: PORT,
   jwt: {
-    secret: JWT_SECRET,
+    sign: JWT_SECRET_SIGN,
+    payload: JWT_SECRET_PAYLOAD,
+    token: jwt.sign(JWT_SECRET_PAYLOAD, JWT_SECRET_SIGN),
   },
   bcryptSaltRounds: parseInt(BCRYPT_SALT_ROUNDS),
   logger: {
