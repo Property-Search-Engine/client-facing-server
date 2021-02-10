@@ -1,13 +1,11 @@
-const mockAuth = (employee_id, mail) => {
-    return jest.fn(() => {
-        return (req, _, next) => {
-            req.employee = {
-                uid: employee_id,
-                email: mail
-            }
-            next();
+const mockAuth = (clientId, mail) => {
+    return (req, _, next) => {
+        req.user = {
+            uid: clientId,
+            email: mail
         }
-    })
+        next();
+    }
 };
 
 module.exports = mockAuth;

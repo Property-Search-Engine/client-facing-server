@@ -27,7 +27,7 @@ async function validateNewBooking(req, res, next) {
 
 async function validateUpdateBookingAddress(req, res, next) {
     try {
-        req.body = await validateNewBooking.validateAsync(req.body);
+        req.body = await updateBookingAddressSchema.validateAsync(req.body);
         next();
     } catch (err) {
         next({ statusCode: 400, message: err.details });

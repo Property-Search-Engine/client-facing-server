@@ -1,16 +1,22 @@
 const db = require("../models");
+const { getPropertyById } = require("./property-controller");
 
 async function bookProperty(req, res, next) {
     const { uid } = req.user;
-    const {
-        propertyId,
-        contactInfo: {
-            message,
-            name
-        }
-    } = req.body;
+    const { propertyId, contactInfo } = req.body;
     try {
-        const booking = await db.Bookings.create({ clientId: uid, propertyId, contactInfo });
+        const property = await getPropertyById(propertyId);
+
+        const booking = await db.Bookings.create({
+            clientId: uid,
+            employeeId: property.employee_id,
+            property: {
+                id: propertyId,
+                address: property.address
+            },
+            contactInfo
+        });
+        
         res.status(200).send({
             data: booking,
             error: null

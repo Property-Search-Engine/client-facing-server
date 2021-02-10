@@ -1,6 +1,4 @@
-const fetch = require('node-fetch');
 const mongoose = require("mongoose");
-const config = require("../../config");
 
 const addressSchema = new mongoose.Schema(
     {
@@ -80,28 +78,5 @@ const bookingSchema = new mongoose.Schema({
         }
     }
 }, { timestamps: true });
-
-
-bookingSchema.pre("validate", async (next) => {
-    try {
-        const res = await fetch(`${config.admin_server_url}/properties/${this.propertyId}`, {
-            method: 'get',
-            headers: { 
-                'Accept': 'application/json',
-                'Auth': config.jwt.token
-             },
-        });
-        if (!res.ok) return next({ statusCode: res.status, message: res.statusText });
-        const property = await res.json();
-        delete this.propertyId;
-        this.property = {
-            id: this.propertyId,
-            address: property.address
-        }
-        this.employeeId = property.employee_id;
-    } catch (err) {
-        next(err);
-    }
-});
 
 module.exports = bookingSchema;

@@ -8,7 +8,6 @@ const errorMiddleware = require("./middleware/error-middleware");
 
 const app = express();
 
-
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(json());

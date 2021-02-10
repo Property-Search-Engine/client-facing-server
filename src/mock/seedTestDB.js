@@ -116,58 +116,79 @@ const EMPLOYEES = [
   }
 ];
 
-async function seedTestPropertiesDB() {
-  const employee1 = EMPLOYEES[0];
-  const employee2 = EMPLOYEES[2];
+const CLIENTS = [
+  {
+    _id: "5d6ede6a0ba62570afcedd3a",
+    firstname: "Pepe",
+    lastname: "Martinez",
+    email: "pepe@mail.com",
+    phone: "827948827",
+  },
+  {
+    _id: "5d6ede6a0ba62570afcedd3b",
+    firstname: "Home",
+    lastname: "house",
+    email: "qsdfsdfg@asdasd.com",
+    phone: "625989438",
+  },
+  {
+    _id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+    firstname: "Pepeee",
+    lastname: "Martinez",
+    email: "test@test.com",
+    phone: "827948527",
+  }
+];
 
-  await db.Employee.create(employee1);
-  await db.Employee.create(employee2);
+const booking = {
+  employee_id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+  property: {
+    id: "5d6ede6a0ba62570afcedd3a",
+    address: {
+      street: "C/Sant a Antoni",
+      number: 50,
+      city: "Barcelona",
+      state: "Catalonia",
+      country: "Spain",
+      coordinates: {
+        lat: 0.1234,
+        long: 1.2314
+      }
+    },
+  },
+  contactInfo: {
+    message: "hey buddy how are you?",
+    name: "Jaster Rogue"
+  }
+};
 
-  await db.Property.insertMany(PROPERTIES);
+const BOOKINGS = [
+  {
+    employeeId: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  },
+  {
+    employeeId: "5d6ede6a0ba62570afcedd3b",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  },
+  {
+    employeeId: "5d6ede6a0ba62570afcedd3a",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  }
+]
+
+async function seedTestBookingsDB() {
+  await db.Bookings.insertMany(BOOKINGS);
 }
 
 function getHome() {
-  return {
-    ...PROPERTIES[0]
-  };
-}
-
-function getOffice() {
-  return {
-    ...PROPERTIES[1]
-  };;
-}
-function getMyHome() {
-  return {
-    ...PROPERTIES[2]
-  };
-}
-
-function getMyOffice() {
-  return {
-    ...PROPERTIES[3]
-  };
-}
-
-function getTestEmployee1() {
-  return {...EMPLOYEES[0]};
-}
-
-function getTestEmployee2() {
-  return {...EMPLOYEES[1]};
-}
-
-function getTestAuthEmployee() {
-  return {...EMPLOYEES[2]};
+  return PROPERTIES[0];
 }
 
 module.exports = {
+  seedTestBookingsDB,
   getHome,
-  getOffice,
-  getMyHome,
-  getMyOffice,
-  getTestEmployee1,
-  getTestEmployee2,
-  seedTestPropertiesDB,
-  getTestAuthEmployee
 };

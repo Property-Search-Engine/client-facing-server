@@ -12,7 +12,6 @@ const {
     updateBookingAddress
 } = require("../controllers/bookings-controller");
 
-//TODO: ADD JOI VALIDATION
 bookingsRouter.post("/", auth, validateNewBooking, bookProperty);
 bookingsRouter.delete("/:propertyId", auth, cancelBooking);
 bookingsRouter.get("/all", auth, getBookings);

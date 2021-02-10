@@ -6,13 +6,10 @@ const authMiddleware = () => async (req, res, next) => {
         req.headers.authorization.startsWith("Bearer ")
     ) {
         const bearerToken = req.headers.authorization.substr(7);
-
         try {
             const userClaims = await auth.verifyIdToken(bearerToken);
-
             const { email, user_id } = userClaims;
-
-            req.employee = {
+            req.user = {
                 email: email,
                 uid: user_id,
             };
