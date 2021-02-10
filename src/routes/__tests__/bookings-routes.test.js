@@ -27,7 +27,8 @@ afterAll(async () => {
 });
 
 describe("Private bookings routes", () => {
-    it("can get property by Id", async () => {
+    let booking = {};
+    it("can create a booking", async () => {
         const postData = {
             propertyId: "spjdvbdfkgjfjhdsfhjds",
             contactInfo: {
@@ -37,8 +38,23 @@ describe("Private bookings routes", () => {
         };
         //insert into db test_property with create property
         const res = await request.post("/bookings").send(postData);
-        const booking = res.body.data;
+        booking = res.body.data;
         expect(booking.status).toBe("pending");
         expect(booking.contactInfo).toMatchObject(postData.contactInfo);
+    });
+    
+    it("can get my bookings", async () => {
+        //insert into db test_property with create property
+        const res = await request.get("/bookings/all");
+        const bookings = res.body.data;
+        expect(bookings).toHaveLength(1);
+        expect(bookings[0].contactInfo).not.toBeDefined();
+    });
+
+    it("can cancel a booking", async () => {
+        //insert into db test_property with create property
+        const res = await request.delete(`/bookings/${booking.property.id}`);
+        let book = res.body.data;
+        expect(book).toMatchObject(booking);
     });
 });

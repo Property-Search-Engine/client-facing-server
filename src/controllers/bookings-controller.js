@@ -16,7 +16,7 @@ async function bookProperty(req, res, next) {
             },
             contactInfo
         });
-        
+
         res.status(200).send({
             data: booking,
             error: null
@@ -29,10 +29,10 @@ async function bookProperty(req, res, next) {
 async function getBookings(req, res, next) {
     const { uid } = req.user;
     try {
-        const bookings = db.Bookings
+        const bookings = await db.Bookings
             .find({ clientId: uid })
             .select("-__v -contactInfo")
-            .sort({ created_at: -1 })
+            .sort({ createdAt: -1 })
             .lean()
             .exec();
         res.status(200).send({
@@ -48,7 +48,7 @@ async function cancelBooking(req, res, next) {
     const { uid } = req.user;
     const { propertyId } = req.params;
     try {
-        const booking = db.Bookings.findOneAndDelete({ "property.id": propertyId, clientId: uid }).lean().exec();
+        const booking = await db.Bookings.findOneAndDelete({ "property.id": propertyId, clientId: uid }).lean().exec();
         res.status(200).send({
             data: booking,
             error: null
@@ -62,7 +62,7 @@ async function updateBookingAddress(req, res, next) {
     const { propertyId } = req.params;
     const { address } = req.body;
     try {
-        const bookings = db.Bookings.updateMany({ "property.id": propertyId }, {
+        const bookings = await db.Bookings.updateMany({ "property.id": propertyId }, {
             $set: { address }
         }, { new: true })
             .lean().exec();
