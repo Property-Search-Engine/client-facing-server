@@ -110,6 +110,7 @@ const USERS = [
     firstname: "Test",
     lastname: "Test",
     email: "testing8@test.com",
+    password: "123456"
   }
 ];
 

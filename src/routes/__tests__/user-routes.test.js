@@ -4,7 +4,7 @@ jest.mock('../../middleware/auth-middleware.js', () => mockAuth);
 
 const supertest = require("supertest");
 const testServer = require("../../mock/db-test-server");
-const { getTestAuthUser, getHome, getMyHome, getMyOffice } = require("../../mock/seedTestDB");
+const { getTestAuthUser } = require("../../mock/seedTestDB");
 const app = require("../../server");
 
 const request = supertest(app);
