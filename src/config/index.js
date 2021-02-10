@@ -9,6 +9,7 @@ const {
   MONGO_DB_URL_TEST,
   PORT = 5000,
   JWT_SECRET,
+  ADMIN_SERVER_URL,
   BCRYPT_SALT_ROUNDS,
   FB_CERT_TYPE,
   FB_CERT_PROJECT_ID,
@@ -19,7 +20,7 @@ const {
   FB_CERT_AUTH_URI,
   FB_CERT_TOKEN_URI,
   FB_CERT_AUTH_PROVIDER_X_509_CERT_URL,
-  FB_CERT_CLIENT_X_509_CERT_URL
+  FB_CERT_CLIENT_X_509_CERT_URL,
 } = process.env;
 
 const baseConfig = {
@@ -35,6 +36,7 @@ const baseConfig = {
     trace: logger.trace,
     debug: logger.debug,
   },
+  admin_server_url: ADMIN_SERVER_URL,
   firebase: {
     certConfig: {
       type: FB_CERT_TYPE,

@@ -1,4 +1,6 @@
+const fetch = require('node-fetch');
 const mongoose = require("mongoose");
+const config = require("../../config");
 
 const addressSchema = new mongoose.Schema(
     {
@@ -36,7 +38,8 @@ const bookingSchema = new mongoose.Schema({
     clientId: {
         type: String,
         required: true,
-        ref: "Client"
+        ref: "Client",
+        index: true
     },
     employeeId: {
         type: String,
@@ -48,7 +51,8 @@ const bookingSchema = new mongoose.Schema({
         required: true,
         id: {
             type: mongoose.SchemaTypes.ObjectId,
-            required: true
+            required: true,
+            index: true
         },
         address: {
             type: addressSchema,
@@ -58,7 +62,7 @@ const bookingSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ["pending", "rejected", "accepted"],
-        required: true,
+        default: "pending"
     },
     contactInfo: {
         type: Object,
@@ -77,5 +81,24 @@ const bookingSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+
+bookingSchema.pre("validate", async (next) => {
+    try {
+        const res = await fetch(`${config.admin_server_url}/${this.propertyId}`, {
+            method: 'get',
+            headers: { 'Accept': 'application/json' },
+        });
+        if (!res.ok) return next({ statusCode: res.status, message: res.statusText });
+        const property = await res.json();
+        delete this.propertyId;
+        this.property = {
+            id: this.propertyId,
+            address: property.address
+        }
+        this.employeeId = property.employee_id;
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = bookingSchema;
