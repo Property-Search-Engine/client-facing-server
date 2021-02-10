@@ -92,36 +92,33 @@ const PROPERTIES = [
   }
 ];
 
-const EMPLOYEES = [
+const USERS = [
   {
     _id: "5d6ede6a0ba62570afcedd3a",
     firstname: "Pepe",
     lastname: "Martinez",
     email: "pepe@mail.com",
-    phone: "827948827",
   },
   {
     _id: "5d6ede6a0ba62570afcedd3b",
     firstname: "Home",
     lastname: "house",
     email: "qsdfsdfg@asdasd.com",
-    phone: "625989438",
   },
   {
-    _id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
-    firstname: "Pepeee",
-    lastname: "Martinez",
-    email: "test@test.com",
-    phone: "827948527",
+    _id: "QFjmud29ILafHvqQicIYQodNsFD2",
+    firstname: "Test",
+    lastname: "Test",
+    email: "testing8@test.com",
   }
 ];
 
 async function seedTestPropertiesDB() {
-  const employee1 = EMPLOYEES[0];
-  const employee2 = EMPLOYEES[2];
+  const user1 = USERS[0];
+  const user2 = USERS[2];
 
-  await db.Employee.create(employee1);
-  await db.Employee.create(employee2);
+  await db.User.create(user1);
+  await db.User.create(user2);
 
   await db.Property.insertMany(PROPERTIES);
 }
@@ -149,16 +146,16 @@ function getMyOffice() {
   };
 }
 
-function getTestEmployee1() {
-  return {...EMPLOYEES[0]};
+function getTestUser1() {
+  return { ...USERS[0] };
 }
 
-function getTestEmployee2() {
-  return {...EMPLOYEES[1]};
+function getTestUser2() {
+  return { ...USERS[1] };
 }
 
-function getTestAuthEmployee() {
-  return {...EMPLOYEES[2]};
+function getTestAuthUser() {
+  return { ...USERS[2] };
 }
 
 module.exports = {
@@ -166,8 +163,8 @@ module.exports = {
   getOffice,
   getMyHome,
   getMyOffice,
-  getTestEmployee1,
-  getTestEmployee2,
+  getTestUser1,
+  getTestUser2,
   seedTestPropertiesDB,
-  getTestAuthEmployee
+  getTestAuthUser
 };

@@ -12,7 +12,7 @@ const authMiddleware = () => async (req, res, next) => {
 
             const { email, user_id } = userClaims;
 
-            req.employee = {
+            req.user = {
                 email: email,
                 uid: user_id,
             };
