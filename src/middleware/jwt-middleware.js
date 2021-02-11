@@ -12,4 +12,4 @@ function validateJWT(req, res, next) {
         next(error);
     }
 }
-module.exports = { validateJWT };
+module.exports = validateJWT;

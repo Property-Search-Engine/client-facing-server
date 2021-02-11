@@ -14,6 +14,6 @@ const {
 userRouter.post("/register", validateRegisterData, register);
 userRouter.post("/login", auth, login);
 userRouter.delete("/", auth, deleteUser);
-userRouter.put("/profile", auth, validateUpdateData, update);
+userRouter.patch("/profile", auth, validateUpdateData, update);
 
 module.exports = userRouter;

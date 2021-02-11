@@ -195,9 +195,15 @@ function getTestAuthUser() {
   return { ...USERS[2] };
 }
 
+
+function getHome() {
+  return PROPERTIES[0];
+}
+
 module.exports = {
   seedTestBookingsDB,
   getTestUser1,
   getTestUser2,
+  getHome,
   getTestAuthUser
 };

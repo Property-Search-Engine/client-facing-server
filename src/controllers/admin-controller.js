@@ -1,6 +1,6 @@
 const db = require("../models");
 const conf = require("../config")
-const { generateJWT } = require("../middleware/stsauth-middleware")
+const { generateJWT } = require("../middleware/jwt-middleware")
 
 async function createJWT(req, res, next) {
     const { payload, sign } = req.query
