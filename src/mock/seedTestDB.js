@@ -120,21 +120,18 @@ const CLIENTS = [
     firstname: "Pepe",
     lastname: "Martinez",
     email: "pepe@mail.com",
-    phone: "827948827",
   },
   {
     _id: "5d6ede6a0ba62570afcedd3b",
     firstname: "Home",
     lastname: "house",
     email: "qsdfsdfg@asdasd.com",
-    phone: "625989438",
   },
   {
-    _id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
-    firstname: "Pepeee",
-    lastname: "Martinez",
-    email: "test@test.com",
-    phone: "827948527",
+    _id: "QFjmud29ILafHvqQicIYQodNsFD2",
+    firstname: "Test",
+    lastname: "Test",
+    email: "testing8@test.com",
   }
 ];
 
