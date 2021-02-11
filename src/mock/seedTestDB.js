@@ -114,38 +114,74 @@ const USERS = [
   }
 ];
 
-async function seedTestPropertiesDB() {
-  const user1 = USERS[0];
-  const user2 = USERS[2];
+const CLIENTS = [
+  {
+    _id: "5d6ede6a0ba62570afcedd3a",
+    firstname: "Pepe",
+    lastname: "Martinez",
+    email: "pepe@mail.com",
+    phone: "827948827",
+  },
+  {
+    _id: "5d6ede6a0ba62570afcedd3b",
+    firstname: "Home",
+    lastname: "house",
+    email: "qsdfsdfg@asdasd.com",
+    phone: "625989438",
+  },
+  {
+    _id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+    firstname: "Pepeee",
+    lastname: "Martinez",
+    email: "test@test.com",
+    phone: "827948527",
+  }
+];
 
-  await db.User.create(user1);
-  await db.User.create(user2);
+const booking = {
+  employee_id: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+  property: {
+    id: "5d6ede6a0ba62570afcedd3a",
+    address: {
+      street: "C/Sant a Antoni",
+      number: 50,
+      city: "Barcelona",
+      state: "Catalonia",
+      country: "Spain",
+      coordinates: {
+        lat: 0.1234,
+        long: 1.2314
+      }
+    },
+  },
+  contactInfo: {
+    message: "hey buddy how are you?",
+    name: "Jaster Rogue"
+  }
+};
 
-  await db.Property.insertMany(PROPERTIES);
+const BOOKINGS = [
+  {
+    employeeId: "10m0nAK1ipeJHDnyBDNsKPWjBJR2",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  },
+  {
+    employeeId: "5d6ede6a0ba62570afcedd3b",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  },
+  {
+    employeeId: "5d6ede6a0ba62570afcedd3a",
+    clientId: "10m0nAK1ipeJHDnyBDNsKPWjBJR3",
+    ...booking,
+  }
+]
+
+async function seedTestBookingsDB() {
+  await db.Bookings.insertMany(BOOKINGS);
 }
 
-function getHome() {
-  return {
-    ...PROPERTIES[0]
-  };
-}
-
-function getOffice() {
-  return {
-    ...PROPERTIES[1]
-  };;
-}
-function getMyHome() {
-  return {
-    ...PROPERTIES[2]
-  };
-}
-
-function getMyOffice() {
-  return {
-    ...PROPERTIES[3]
-  };
-}
 
 function getTestUser1() {
   return { ...USERS[0] };
@@ -160,12 +196,8 @@ function getTestAuthUser() {
 }
 
 module.exports = {
-  getHome,
-  getOffice,
-  getMyHome,
-  getMyOffice,
+  seedTestBookingsDB,
   getTestUser1,
   getTestUser2,
-  seedTestPropertiesDB,
   getTestAuthUser
 };
