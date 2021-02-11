@@ -1,5 +1,5 @@
 const db = require("../models");
-const { getPropertyById } = require("./property-controller");
+const { getPropertyById } = require("../utils/properties");
 
 async function bookProperty(req, res, next) {
     const { uid } = req.user;

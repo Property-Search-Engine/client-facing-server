@@ -15,7 +15,6 @@ const {
 bookingsRouter.post("/", auth(), validateNewBooking, bookProperty);
 bookingsRouter.delete("/:propertyId", auth(), cancelBooking);
 bookingsRouter.get("/all", auth(), getBookings);
-
 bookingsRouter.patch("/:propertyId", validateUpdateBookingAddress, updateBookingAddress);
 
 module.exports = bookingsRouter;
