@@ -74,5 +74,42 @@ async function updateBookingAddress(req, res, next) {
         next(err);
     }
 }
+async function getBookingsByEmployeeId(req, res, next) {
+    const { eid } = req.params;
+    try {
+        const bookings = await db.Bookings
+            .find({ employeeId: eid })
+            .select("-__v -contactInfo")
+            .sort({ createdAt: -1 })
+            .lean()
+            .exec();
+        res.status(200).send({
+            data: bookings,
+            error: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+async function setStatus(req, res, next) {
+    const { propertyId, status } = req.params;
+    if (status == "pending" || status == "rejected" || status == "accepted") {
+        try {
+            const booking = await db.Bookings
+                .findByIdAndUpdate(propertyId, { status }, { new: true })
+                .select("-__v -contactInfo")
+                .lean()
+                .exec();
+            res.status(200).send({
+                data: booking,
+                error: null
+            });
+        } catch (err) {
+            next(err);
+        }
+    } else {
+        next({ statusCode: 401, message: "Status not valid" })
+    }
 
-module.exports = { getBookings, bookProperty, cancelBooking, updateBookingAddress };
+}
+module.exports = { getBookings, bookProperty, cancelBooking, updateBookingAddress, getBookingsByEmployeeId, setStatus };

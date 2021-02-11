@@ -1,5 +1,6 @@
 const logger = require("loglevel");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 logger.enableAll();
 
@@ -8,7 +9,7 @@ const {
   MONGO_DB_URL_PRODUCTION,
   MONGO_DB_URL_DEVELOPMENT,
   MONGO_DB_URL_TEST,
-  PORT = 5000,
+  PORT = 5001,
   JWT_SECRET_PAYLOAD,
   JWT_SECRET_SIGN,
   ADMIN_SERVER_URL,
