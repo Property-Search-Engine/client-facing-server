@@ -12,9 +12,9 @@ const {
     updateBookingAddress
 } = require("../controllers/bookings-controller");
 
-bookingsRouter.post("/", auth, validateNewBooking, bookProperty);
-bookingsRouter.delete("/:propertyId", auth, cancelBooking);
-bookingsRouter.get("/all", auth, getBookings);
+bookingsRouter.post("/", auth(), validateNewBooking, bookProperty);
+bookingsRouter.delete("/:propertyId", auth(), cancelBooking);
+bookingsRouter.get("/all", auth(), getBookings);
 
 bookingsRouter.patch("/:propertyId", validateUpdateBookingAddress, updateBookingAddress);
 
