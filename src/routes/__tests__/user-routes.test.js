@@ -3,8 +3,9 @@ const mockAuth = require("../../mock/middleware/auth-middleware")(MOCK_EMPLOYEE_
 jest.mock('../../middleware/auth-middleware.js', () => mockAuth);
 
 const supertest = require("supertest");
+const { login } = require("../../controllers/user-controller");
 const testServer = require("../../mock/db-test-server");
-const { getTestAuthUser, getHome, getMyHome, getMyOffice } = require("../../mock/seedTestDB");
+const { getTestAuthUser } = require("../../mock/seedTestDB");
 const app = require("../../server");
 
 const request = supertest(app);
@@ -41,9 +42,9 @@ describe("user route", () => {
     });
 
     it("can update", async () => {
-        const loginRes = await request.put("/user/profile")
+        const loginRes = await request.patch("/user/profile")
             .send({ firstname: "Changed", lastname: "Changed" });
-        expect(loginRes.status).toBe(201);
+        expect(loginRes.status).toBe(200);
         expect(loginRes.body.data.firstname).toEqual("Changed");
         expect(loginRes.body.data.lastname).toEqual("Changed");
         expect(loginRes.body.error).toBeUndefined();
@@ -52,7 +53,7 @@ describe("user route", () => {
     it("can delete user", async () => {
         const deletedRes = await request.delete("/user/");
         expect(deletedRes.status).toBe(202);
-        expect(deletedRes.body.message).toEqual("Employee deleted");
+        expect(deletedRes.body.message).toEqual("User deleted");
         expect(deletedRes.body.error).toBeNull();
     });
 

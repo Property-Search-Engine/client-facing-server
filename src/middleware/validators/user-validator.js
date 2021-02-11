@@ -3,7 +3,6 @@ const Joi = require("joi")
 const updateUserSchema = Joi.object({
     firstname: Joi.string().min(3).max(255).required(),
     lastname: Joi.string().min(3).max(255).required(),
-    email: Joi.string().min(6).max(255).required(),
 });
 
 const registerUserSchema = Joi.object({

@@ -4,9 +4,11 @@ describe("App Config", () => {
   test("App config is set-up", () => {
     expect(config).toEqual({
       port: expect.any(String),
+      admin_server_url: expect.any(String),
       jwt: {
         sign: expect.any(String),
-        payload: expect.any(String)
+        payload: expect.any(String),
+        token: expect.any(String)
       },
       bcryptSaltRounds: expect.any(Number),
       db: {
