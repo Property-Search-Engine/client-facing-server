@@ -15,6 +15,9 @@ const updateBookingAddressSchema = Joi.object({
     state: Joi.string().trim().required(),
     country: Joi.string().trim().required(),
 });
+const setStatusSchema = Joi.object({
+    status: Joi.string().trim().required().valid("pending", "rejected", "accepted"),
+});
 
 async function validateNewBooking(req, res, next) {
     try {
@@ -33,5 +36,13 @@ async function validateUpdateBookingAddress(req, res, next) {
         next({ statusCode: 400, message: err.details });
     }
 }
+async function validateSetStatus(req, res, next) {
+    try {
+        req.body = await setStatusSchema.validateAsync(req.body);
+        next();
+    } catch (err) {
+        next({ statusCode: 400, message: err.details });
+    }
+}
 
-module.exports = { validateNewBooking, validateUpdateBookingAddress };
+module.exports = { validateNewBooking, validateUpdateBookingAddress, validateSetStatus };

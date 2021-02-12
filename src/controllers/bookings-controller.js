@@ -1,5 +1,5 @@
 const db = require("../models");
-const { getPropertyById } = require("./property-controller");
+const { getPropertyById } = require("../utils/properties");
 
 async function bookProperty(req, res, next) {
     const { uid } = req.user;
@@ -74,5 +74,38 @@ async function updateBookingAddress(req, res, next) {
         next(err);
     }
 }
-
-module.exports = { getBookings, bookProperty, cancelBooking, updateBookingAddress };
+async function getBookingsByEmployeeId(req, res, next) {
+    const { eid } = req.params;
+    try {
+        const bookings = await db.Bookings
+            .find({ employeeId: eid })
+            .select("-__v -contactInfo")
+            .sort({ createdAt: -1 })
+            .lean()
+            .exec();
+        res.status(200).send({
+            data: bookings,
+            error: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+async function setStatus(req, res, next) {
+    const { propertyId } = req.params;
+    const { status } = req.body;
+    try {
+        const booking = await db.Bookings
+            .findByIdAndUpdate(propertyId, { status }, { new: true })
+            .select("-__v -contactInfo")
+            .lean()
+            .exec();
+        res.status(200).send({
+            data: booking,
+            error: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+module.exports = { getBookings, bookProperty, cancelBooking, updateBookingAddress, getBookingsByEmployeeId, setStatus };
