@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const config = require("../config");
-const { getPropertyById } = require("../utils/properties");
+const { getPropertyById, searchAdminProperties } = require("../utils/properties");
 
 async function getProperty(req, res, next) {
     const { propertyId } = req.params;
