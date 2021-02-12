@@ -18,10 +18,7 @@ bookingsRouter.post("/", auth(), validateNewBooking, bookProperty);
 bookingsRouter.delete("/:propertyId", auth(), cancelBooking);
 bookingsRouter.get("/all", auth(), getBookings);
 bookingsRouter.get("/employees/:eid", validateJWT, getBookingsByEmployeeId);
-
 bookingsRouter.post("/:propertyId/:status", validateJWT, setStatus);
-
-
-bookingsRouter.patch("/:propertyId", validateUpdateBookingAddress, updateBookingAddress);
+bookingsRouter.patch("/:propertyId", validateJWT, validateUpdateBookingAddress, updateBookingAddress);
 
 module.exports = bookingsRouter;
