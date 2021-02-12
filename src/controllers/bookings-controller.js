@@ -92,24 +92,20 @@ async function getBookingsByEmployeeId(req, res, next) {
     }
 }
 async function setStatus(req, res, next) {
-    const { propertyId, status } = req.params;
-    if (status == "pending" || status == "rejected" || status == "accepted") {
-        try {
-            const booking = await db.Bookings
-                .findByIdAndUpdate(propertyId, { status }, { new: true })
-                .select("-__v -contactInfo")
-                .lean()
-                .exec();
-            res.status(200).send({
-                data: booking,
-                error: null
-            });
-        } catch (err) {
-            next(err);
-        }
-    } else {
-        next({ statusCode: 401, message: "Status not valid" })
+    const { propertyId } = req.params;
+    const { status } = req.body;
+    try {
+        const booking = await db.Bookings
+            .findByIdAndUpdate(propertyId, { status }, { new: true })
+            .select("-__v -contactInfo")
+            .lean()
+            .exec();
+        res.status(200).send({
+            data: booking,
+            error: null
+        });
+    } catch (err) {
+        next(err);
     }
-
 }
 module.exports = { getBookings, bookProperty, cancelBooking, updateBookingAddress, getBookingsByEmployeeId, setStatus };

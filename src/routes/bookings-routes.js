@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const auth = require("../middleware/auth-middleware");
 const validateJWT = require("../middleware/jwt-middleware");
-const { validateNewBooking, validateUpdateBookingAddress } = require("../middleware/validators/bookings-validator");
+const { validateNewBooking, validateUpdateBookingAddress, validateSetStatus } = require("../middleware/validators/bookings-validator");
 
 const bookingsRouter = Router();
 
@@ -19,7 +19,7 @@ bookingsRouter.delete("/:propertyId", auth(), cancelBooking);
 bookingsRouter.get("/all", auth(), getBookings);
 bookingsRouter.get("/employees/:eid", validateJWT, getBookingsByEmployeeId);
 
-bookingsRouter.post("/:propertyId/:status", validateJWT, setStatus);
+bookingsRouter.post("/:propertyId", validateJWT, validateSetStatus, setStatus);
 
 
 bookingsRouter.patch("/:propertyId", validateUpdateBookingAddress, updateBookingAddress);
