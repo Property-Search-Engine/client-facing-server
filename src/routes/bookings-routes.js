@@ -21,7 +21,6 @@ bookingsRouter.get("/employees/:eid", validateJWT, getBookingsByEmployeeId);
 
 bookingsRouter.post("/:propertyId", validateJWT, validateSetStatus, setStatus);
 
-
-bookingsRouter.patch("/:propertyId", validateUpdateBookingAddress, updateBookingAddress);
+bookingsRouter.patch("/:propertyId", validateJWT, validateUpdateBookingAddress, updateBookingAddress);
 
 module.exports = bookingsRouter;

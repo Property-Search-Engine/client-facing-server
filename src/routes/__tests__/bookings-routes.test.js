@@ -10,7 +10,7 @@ const setupTestDB = require("../../mock/seedTestDB");
 
 const mockHome = setupTestDB.getHome();
 
-jest.mock("../../controllers/property-controller", () => ({
+jest.mock("../../utils/properties", () => ({
     getPropertyById: () => mockHome
 }))
 
