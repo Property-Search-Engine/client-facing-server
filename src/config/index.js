@@ -30,7 +30,7 @@ const baseConfig = {
   jwt: {
     sign: JWT_SECRET_SIGN,
     payload: JWT_SECRET_PAYLOAD,
-    token: jwt.sign(JWT_SECRET_PAYLOAD, JWT_SECRET_SIGN),
+    token: jwt.sign({sub: JWT_SECRET_PAYLOAD}, JWT_SECRET_SIGN),
   },
   bcryptSaltRounds: parseInt(BCRYPT_SALT_ROUNDS),
   logger: {
