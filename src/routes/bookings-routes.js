@@ -14,12 +14,12 @@ const {
     setStatus
 } = require("../controllers/bookings-controller");
 
-bookingsRouter.post("/", auth(), validateNewBooking, bookProperty);
+bookingsRouter.get("/employees/:eid", validateJWT, getBookingsByEmployeeId);
+bookingsRouter.patch("/:propertyId/address", validateJWT, validateUpdateBookingAddress, updateBookingAddress);
+bookingsRouter.post("/:propertyId", validateJWT, validateSetStatus, setStatus);
+
 bookingsRouter.delete("/:propertyId", auth(), cancelBooking);
 bookingsRouter.get("/all", auth(), getBookings);
-
-bookingsRouter.get("/employees/:eid", validateJWT, getBookingsByEmployeeId);
-bookingsRouter.post("/:propertyId", validateJWT, validateSetStatus, setStatus);
-bookingsRouter.patch("/:propertyId", validateJWT, validateUpdateBookingAddress, updateBookingAddress);
+bookingsRouter.post("/", auth(), validateNewBooking, bookProperty);
 
 module.exports = bookingsRouter;

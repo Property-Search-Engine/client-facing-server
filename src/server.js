@@ -3,7 +3,6 @@ const morgan = require("morgan");
 const { json } = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-const validateJWT = require("./middleware/jwt-middleware")
 
 const errorMiddleware = require("./middleware/error-middleware");
 const userRouter = require("./routes/user-routes")
