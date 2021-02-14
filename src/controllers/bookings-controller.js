@@ -5,8 +5,8 @@ async function bookProperty(req, res, next) {
     const { uid } = req.user;
     const { propertyId, contactInfo } = req.body;
     try {
-        const property = await getPropertyById(propertyId);
-
+        const response = await getPropertyById(propertyId);
+        const property = response.data;
         const booking = await db.Bookings.create({
             clientId: uid,
             employeeId: property.employee_id,

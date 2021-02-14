@@ -11,7 +11,7 @@ const setupTestDB = require("../../mock/seedTestDB");
 const mockHome = setupTestDB.getHome();
 
 jest.mock("../../utils/properties", () => ({
-    getPropertyById: () => mockHome
+    getPropertyById: () => ({ data: mockHome, error: null })
 }))
 
 const request = supertest(app);
@@ -42,7 +42,7 @@ describe("Private bookings routes", () => {
         expect(booking.status).toBe("pending");
         expect(booking.contactInfo).toMatchObject(postData.contactInfo);
     });
-    
+
     it("can get my bookings", async () => {
         //insert into db test_property with create property
         const res = await request.get("/bookings/all");
