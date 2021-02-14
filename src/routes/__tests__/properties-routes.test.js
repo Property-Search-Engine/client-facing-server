@@ -8,8 +8,15 @@ const testServer = require("../../mock/db-test-server");
 const app = require("../../server");
 const setupTestDB = require("../../mock/seedTestDB");
 const { parseQueryParams } = require("../../utils/properties");
+const fetch = require("node-fetch");
+jest.mock("node-fetch");
 
 const request = supertest(app);
+
+
+beforeEach(async () => {
+    jest.clearAllMocks();
+});
 
 beforeAll(async () => {
     await testServer.initTestServer();
@@ -33,5 +40,29 @@ describe("Properties routes", () => {
         //insert into db test_property with create property
         const string = parseQueryParams(queryParams);
         expect(string).toEqual("name=Patata&age=19&homeType[]=patata&homeType[]=queso&homeType[]=macarrones&names[]=Victor&names[]=Martinez&names[]=Montané&sold=true&");
+    });
+
+    it("can search properties", async () => {
+        fetch.mockResolvedValue({
+            json: () => Promise.resolve([
+                { hello: "World" }
+            ]),
+            ok: true
+        });
+
+        const res = await request.get("/properties?kind=Office");
+        expect(res.body.data).toMatchObject([{ hello: "World" }]);
+    });
+
+    it("can get property by Id", async () => {
+        fetch.mockResolvedValue({
+            json: () => Promise.resolve(
+                { hello: "World" }
+            ),
+            ok: true
+        });
+
+        const res = await request.get("/properties/sdflksdgkn");
+        expect(res.body.data).toMatchObject({ hello: "World" });
     });
 });
