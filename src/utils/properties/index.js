@@ -1,3 +1,6 @@
+const fetch = require("node-fetch");
+const config = require("../../config");
+
 async function getPropertyById(propertyId) {
     const res = await fetch(`${config.admin_server_url}/client/properties/${propertyId}`, {
         method: 'get',

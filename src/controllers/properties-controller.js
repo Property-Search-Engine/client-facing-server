@@ -1,5 +1,3 @@
-const fetch = require("node-fetch");
-const config = require("../config");
 const { getPropertyById, searchAdminProperties } = require("../utils/properties");
 
 async function getProperty(req, res, next) {
