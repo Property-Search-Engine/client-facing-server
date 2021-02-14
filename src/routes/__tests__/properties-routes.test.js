@@ -51,7 +51,7 @@ describe("Properties routes", () => {
         });
 
         const res = await request.get("/properties?kind=Office");
-        expect(res.body.data).toMatchObject([{ hello: "World" }]);
+        expect(res.body).toMatchObject([{ hello: "World" }]);
     });
 
     it("can get property by Id", async () => {
@@ -63,6 +63,6 @@ describe("Properties routes", () => {
         });
 
         const res = await request.get("/properties/sdflksdgkn");
-        expect(res.body.data).toMatchObject({ hello: "World" });
+        expect(res.body).toMatchObject({ hello: "World" });
     });
 });
